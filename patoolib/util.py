@@ -210,10 +210,11 @@ def run (cmd, verbosity=0, **kwargs):
             # for shell calls the command must be a string
             cmd = " ".join(cmd)
     if verbosity < 1:
+	    CREATE_NO_WINDOW = 0x08000000
         # hide command output on stdout
         with open(os.devnull, 'wb') as devnull:
             kwargs['stdout'] = devnull
-            res = subprocess.call(cmd, **kwargs)
+            res = subprocess.call(cmd, creationflags=CREATE_NO_WINDOW, **kwargs)
     else:
         res = subprocess.call(cmd, **kwargs)
     return res
